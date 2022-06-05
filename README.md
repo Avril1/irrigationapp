@@ -1,7 +1,6 @@
 # irrigation_app
 
-A new Flutter application.
-
+跨平台智能灌溉APP
 ## Getting Started
 
 This project is a starting point for a Flutter application.
