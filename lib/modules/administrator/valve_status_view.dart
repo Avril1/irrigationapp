@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:irrigation_app/core/context/tb_context.dart';
 import 'package:irrigation_app/core/context/tb_context_widget.dart';
+import 'package:irrigation_app/utils/device_attribute.dart';
 import 'package:thingsboard_client/thingsboard_client.dart';
 
 class ValveStatusView extends TbPageWidget{
@@ -15,6 +16,7 @@ class ValveStatusView extends TbPageWidget{
 class _ValveStatusViewState extends TbPageState<ValveStatusView> {
   String? status;
   late Future<List<Widget>> futureWidgets;
+  DeviceAttribute? deviceAttribute;
 
   @override
   void initState() {
@@ -159,38 +161,9 @@ class _ValveStatusViewState extends TbPageState<ValveStatusView> {
   }
 
   Future<void> getSensorStatus(String deviceToken) async {
-    var sensorStatus = await getDeviceAttributes(deviceToken);
+    deviceAttribute ??= DeviceAttribute(tbClient);
+    var sensorStatus = await deviceAttribute?.getDeviceAttributes(deviceToken);
     status = sensorStatus!.client.status;
   }
 
-  Future<DeviceAttributes?> getDeviceAttributes(String deviceToken,
-      {RequestConfig? requestConfig}) async {
-    return nullIfNotFound(
-          (RequestConfig requestConfig) async {
-        var response = await tbClient.get<Map<String, dynamic>>(
-            '/api/v1/$deviceToken/attributes?clientKeys=status',
-            options: defaultHttpOptionsFromConfig(requestConfig));
-        return response.data != null
-            ? DeviceAttributes.fromJson(response.data!)
-            : null;
-      },
-      requestConfig: requestConfig,
-    );
-  }
-
-}
-
-class DeviceAttributes {
-  DeviceStatus client;
-
-  DeviceAttributes.fromJson(Map<String, dynamic> json)
-      : client = DeviceStatus.fromJson(json['client']);
-}
-
-class DeviceStatus {
-  String? status;
-
-  DeviceStatus() : status = '';
-
-  DeviceStatus.fromJson(Map<String, dynamic> json) : status = json['status'];
 }
