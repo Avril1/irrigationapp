@@ -116,12 +116,18 @@ class _SensorDataViewState extends TbPageState<SensorDataView> {
         Navigator.push(context, MaterialPageRoute(
             builder: (context) => HomeFarmerView(tbContext, customerId: customerId, farmType: farmType,)
         ));
-        subscriber.unsubscribe();
         return false;
       },
     );
   }
-  
+
+
+  @override
+  void dispose() {
+    subscriber.unsubscribe();
+    super.dispose();
+  }
+
   Future<List<Widget>> getSensors() async {
     PageLink pageLink = PageLink(20);
     var pageData = await tbClient.getDeviceService().getCustomerDevices(

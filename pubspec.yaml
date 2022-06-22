@@ -42,6 +42,13 @@ dependencies:
   flutter_svg: ^0.23.0+1
   infinite_scroll_pagination: ^3.0.1
   url_launcher: ^6.1.0
+  awesome_notifications: ^0.6.21
+  permission_handler: ^9.2.0
+  sqflite: ^2.0.2+1
+  path: ^1.8.0
+  http: ^0.13.4
+  geolocator: ^8.2.1
+  geocoding: ^2.0.4
 
 
 dev_dependencies:

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:irrigation_app/core/context/tb_context.dart';
 import 'package:irrigation_app/core/context/tb_context_widget.dart';
-import 'package:irrigation_app/utils/device_attribute.dart';
 import 'package:thingsboard_client/thingsboard_client.dart';
 
 import 'home_farmer_view.dart';
@@ -27,7 +26,6 @@ class _ValveControlViewState extends TbPageState<ValveControlView> {
   bool switched = false;
   String time = '0';
   late Future<List<Widget>> futureWidgets;
-  DeviceAttribute? deviceAttribute;
   late DeviceId deviceID;
   late TelemetrySubscriber subscriber;
 
