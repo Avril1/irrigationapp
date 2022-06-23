@@ -15,7 +15,7 @@ class ValveControlRoutes extends TbRoutes {
   });
 
   late var valveGraphHandler = Handler(handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-    return ValveGraphView(tbContext);
+    return ValveGraphView(tbContext,deviceName: '',);
   });
 
   late var notificationHandler = Handler(handlerFunc: (BuildContext? context, Map<String, dynamic> params) {

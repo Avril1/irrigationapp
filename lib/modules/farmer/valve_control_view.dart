@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:irrigation_app/core/context/tb_context.dart';
 import 'package:irrigation_app/core/context/tb_context_widget.dart';
+import 'package:irrigation_app/modules/farmer/valve_graph_view.dart';
 import 'package:thingsboard_client/thingsboard_client.dart';
 
 import 'home_farmer_view.dart';
@@ -208,7 +209,8 @@ class _ValveControlViewState extends TbPageState<ValveControlView> {
       String image, String text, String time, DeviceId? deviceId) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/valve_graph');
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => ValveGraphView(tbContext, deviceName: text)));
       },
       child: Container(
         padding: const EdgeInsets.all(20),

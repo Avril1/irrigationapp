@@ -191,14 +191,15 @@ class _SensorDataViewState extends TbPageState<SensorDataView> {
 
     String humidity = '';
     subscriber.entityDataStream.listen((entityDataUpdate) {
-      var data = entityDataUpdate.toString();
+      var data = entityDataUpdate.data;
+      var dataUpdate = entityDataUpdate.update;
 
-      if(data.contains('Page',17)){
-        var index = data.indexOf('humidity');
-        humidity = (data.substring(index + 44, index + 46));
-      } else if(data.contains('null', 17)){
-        var index = data.length;
-        humidity =  data.substring(index -8, index - 6);
+      if(data.toString().contains('timeseries')){
+        var tsValues = data!.data.elementAt(0).timeseries.values.elementAt(0);
+        humidity = tsValues.first.value!;
+      } else if(data.toString().contains('null')){
+        var tsValues = dataUpdate!.elementAt(0).timeseries.values.elementAt(0);
+        humidity = tsValues.first.value!;
       } else{
         humidity = 'null';
       }
