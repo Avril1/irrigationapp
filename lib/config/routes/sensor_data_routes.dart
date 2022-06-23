@@ -14,7 +14,7 @@ class SensorDataRoutes extends TbRoutes {
   });
 
   late var sensorGraphHandler = Handler(handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-    return SensorGraphView(tbContext, customerId: '',);
+    return SensorGraphView(tbContext, customerId: '', deviceName: '',);
   });
 
 

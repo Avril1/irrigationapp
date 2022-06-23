@@ -301,7 +301,7 @@ class _WeatherViewState extends State<WeatherView> {
             children: [
               Text(
                 temp.toString(),
-                style: const TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -313,7 +313,7 @@ class _WeatherViewState extends State<WeatherView> {
                     ),
                   Text(
                     description,
-                    style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

@@ -18,7 +18,6 @@ class SensorDataView extends TbPageWidget {
 class _SensorDataViewState extends TbPageState<SensorDataView> {
   final String customerId;
   final String farmType;
-  String humidity = '';
   late TelemetrySubscriber subscriber;
   late Future<List<Widget>> futureWidgets;
 
@@ -142,14 +141,14 @@ class _SensorDataViewState extends TbPageState<SensorDataView> {
 
     List<Widget> widgets = [];
     for (final sensor in sensors) {
-      await getSensorData(sensor.name);
+      String humidity = await getSensorData(sensor.name);
       widgets.add(sensorData('images/sensor1_icon.png', sensor.name, humidity));
     }
 
     return widgets;
   }
 
-  Future<void> getSensorData(String deviceName) async{
+  Future<String> getSensorData(String deviceName) async{
     var entityFilter = EntityNameFilter(
         entityType: EntityType.DEVICE, entityNameFilter: deviceName);
 
@@ -190,7 +189,7 @@ class _SensorDataViewState extends TbPageState<SensorDataView> {
 
     subscriber.subscribe();
 
-
+    String humidity = '';
     subscriber.entityDataStream.listen((entityDataUpdate) {
       var data = entityDataUpdate.toString();
 
@@ -205,13 +204,14 @@ class _SensorDataViewState extends TbPageState<SensorDataView> {
       }
     });
     await Future.delayed(const Duration(milliseconds: 300));
+    return  humidity;
   }
 
   Widget sensorData(String image, String text, String data){
     return GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => SensorGraphView(tbContext, customerId: customerId),
+              builder: (context) => SensorGraphView(tbContext, customerId: customerId, deviceName: text,),
           ));
     },
     child: Container(
